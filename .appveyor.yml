@@ -1,0 +1,55 @@
+# Windows CI build via the Appveyor service
+
+version: '{build}'
+
+# branches to build
+branches:
+  only:
+    - master  
+
+# skip_non_tags: true
+
+environment:
+  matrix:
+    - QTDIR: C:\Qt\5.12.1\mingw73_64
+  
+# build platform, i.e. x86, x64, Any CPU.
+platform:
+  - x64
+  
+# build Configuration, i.e. Debug, Release, etc.
+configuration:
+  - release
+
+install:
+  - '%QTDIR%\bin\qtenv2.bat'
+  - qmake -v
+  - if %QTDIR:_64=%==%QTDIR% ( set ARCH=x86 ) else set ARCH=x64
+  - if %QTDIR:msvc=%==%QTDIR% g++ --version
+  - if %QTDIR:msvc=%==%QTDIR% set make=mingw32-make.exe -j8
+  - if %QTDIR:msvc=%==%QTDIR% %make% --version
+  - if not %QTDIR:msvc2013=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" %ARCH%
+  - if not %QTDIR:msvc2015=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %ARCH%
+  - if not %QTDIR:msvc=%==%QTDIR% set make=nmake.exe
+  - if not %QTDIR:msvc=%==%QTDIR% %make% /? > nul
+  - set BIN=softprojector
+
+before_build:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - mkdir %APPVEYOR_BUILD_FOLDER%-build
+  - qmake -o %APPVEYOR_BUILD_FOLDER%-build -r -Wall -Wlogic -Wparser CONFIG+=%CONFIGURATION% %APPVEYOR_BUILD_FOLDER%
+  
+build_script:
+  - cd %APPVEYOR_BUILD_FOLDER%-build
+  - '%make%'
+  
+after_build:
+  - mkdir deploy
+  - copy %APPVEYOR_BUILD_FOLDER%\win32_build\bin\%BIN%.exe deploy\%BIN%.exe
+  - windeployqt --%CONFIGURATION% deploy\%BIN%.exe --verbose=2
+  - 7z a -tzip %BIN%_%CONFIGURATION%.zip deploy -r
+  - copy %APPVEYOR_BUILD_FOLDER%-build\%BIN%_%CONFIGURATION%.zip %APPVEYOR_BUILD_FOLDER%\%BIN%_%CONFIGURATION%.zip
+
+artifacts:
+  - path: '%BIN%_%CONFIGURATION%.zip'
+    name: '%BIN%-latest'
