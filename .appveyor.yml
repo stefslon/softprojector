@@ -11,7 +11,7 @@ branches:
 
 environment:
   matrix:
-    - QTDIR: C:\Qt\5.14\mingw73_64
+    - QTDIR: C:\Qt\5.14.1\mingw73_64
   
 # build platform, i.e. x86, x64, Any CPU.
 platform:
