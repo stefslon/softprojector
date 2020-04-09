@@ -79,7 +79,7 @@ script:
     qmake ../$PRO.pro;
     make -j8;
     echo "Run macdeployqt";
-    macdeployqt ./mac_build/bin/$BIN/ -dmg;
+    macdeployqt ./mac_build/bin/$BIN.app/ -dmg;
     find . | grep dmg;
   fi
 
