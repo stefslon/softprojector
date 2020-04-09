@@ -66,6 +66,7 @@ script:
     echo "Create deploy folder";
     mkdir deploy;
     mv ../unix_build/bin/$BIN deploy/;
+    cp ../.desktop deploy/;
     echo "Download and run linuxdeployqt";
     wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage";
     chmod a+x linuxdeployqt*.AppImage;
@@ -79,7 +80,7 @@ script:
     qmake ../$PRO.pro;
     make -j8;
     echo "Run macdeployqt";
-    macdeployqt ./mac_build/bin/$BIN.app/ -dmg;
+    macdeployqt ./mac_build/bin/$BIN.app//Contents/MacOS/$BIN -dmg;
     find . | grep dmg;
   fi
 
