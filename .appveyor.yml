@@ -2,6 +2,9 @@
 
 version: '{build}'
 
+# Build worker image (VM template)
+image: Visual Studio 2019
+
 # branches to build
 branches:
   only:
@@ -11,7 +14,7 @@ branches:
 
 environment:
   matrix:
-    - QTDIR: C:\Qt\5.11\mingw53_32
+    - QTDIR: C:\Qt\5.14.1\mingw73_64
   
 # build platform, i.e. x86, x64, Any CPU.
 platform:
