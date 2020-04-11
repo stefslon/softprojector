@@ -56,7 +56,8 @@ after_build:
   - windeployqt --%CONFIGURATION% deploy\%BIN%.exe --verbose=2 --qmldir %QTDIR%\qml
   - cd deploy
   - 7z a -tzip %BIN%_%CONFIGURATION%.zip . -r
-  - copy %APPVEYOR_BUILD_FOLDER%-build\%BIN%_%CONFIGURATION%.zip %APPVEYOR_BUILD_FOLDER%\%BIN%_%CONFIGURATION%.zip
+  - cd ..
+  - copy %APPVEYOR_BUILD_FOLDER%-build\deploy\%BIN%_%CONFIGURATION%.zip %APPVEYOR_BUILD_FOLDER%\%BIN%_%CONFIGURATION%.zip
 
 artifacts:
   - path: '%BIN%_%CONFIGURATION%.zip'
