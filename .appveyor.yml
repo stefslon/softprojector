@@ -3,7 +3,7 @@
 version: '{build}'
 
 # Build worker image (VM template)
-image: Visual Studio 2017
+image: Visual Studio 2015
 
 # branches to build
 branches:
@@ -16,7 +16,7 @@ environment:
   matrix:
     - QTDIR: C:\Qt\5.12.6\mingw73_64
       cname: mingw
-    - QTDIR: C:\Qt\5.12.6\msvc2017_64
+    - QTDIR: C:\Qt\5.12.6\msvc2015_64
       cname: Win64-VS2015
       VSVER: 14.0
   
@@ -53,8 +53,9 @@ build_script:
 after_build:
   - mkdir deploy
   - copy %APPVEYOR_BUILD_FOLDER%\win32_build\bin\%BIN%.exe deploy\%BIN%.exe
-  - windeployqt --%CONFIGURATION% deploy\%BIN%.exe --verbose=2
-  - 7z a -tzip %BIN%_%CONFIGURATION%.zip deploy -r
+  - windeployqt --%CONFIGURATION% deploy\%BIN%.exe --verbose=2 --qmldir %QTDIR%\qml
+  - cd deploy
+  - 7z a -tzip %BIN%_%CONFIGURATION%.zip . -r
   - copy %APPVEYOR_BUILD_FOLDER%-build\%BIN%_%CONFIGURATION%.zip %APPVEYOR_BUILD_FOLDER%\%BIN%_%CONFIGURATION%.zip
 
 artifacts:
