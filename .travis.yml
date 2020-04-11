@@ -85,6 +85,10 @@ script:
   
 after_success:
 - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-- if [ "${TRAVIS_OS_NAME}" = "linux" ]; then bash upload.sh $BIN*.AppImage* ; fi
-- if [ "${TRAVIS_OS_NAME}" = "osx" ]; then bash upload.sh $BIN*.dmg* ; fi
+- if [ "${TRAVIS_OS_NAME}" = "linux" ]; then bash upload.sh deploy/$BIN*.AppImage* ; fi
+- if [ "${TRAVIS_OS_NAME}" = "osx" ]; then bash upload.sh ../mac_build/bin/$BIN*.dmg* ; fi
 
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous.*)$/

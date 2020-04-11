@@ -16,9 +16,9 @@ environment:
   matrix:
     - QTDIR: C:\Qt\5.12.6\mingw73_64
       cname: mingw
-    - QTDIR: C:\Qt\5.12.6\msvc2015_64
-      cname: Win64-VS2015
-      VSVER: 14.0
+    #- QTDIR: C:\Qt\5.12.6\msvc2015_64
+    #  cname: Win64-VS2015
+    #  VSVER: 14.0
   
 # build platform, i.e. x86, x64, Any CPU.
 platform:
