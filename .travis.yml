@@ -72,7 +72,7 @@ script:
     wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage";
     chmod a+x linuxdeployqt*.AppImage;
     unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH;
-    ./linuxdeployqt*.AppImage deploy/.desktop -verbose=3 -appimage;
+    ./linuxdeployqt*.AppImage deploy/.desktop -verbose=2 -appimage;
   fi
 - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
     echo "Build project";

@@ -71,7 +71,7 @@ deploy:
       secure: cnYMO9cyMsI/9C3cy885c8WQAKb7901FN3tPAsX2sM2g3+2yPiVs4JW5w2OfyHQM
     release: "Latest"
     description: "Beta release of SoftProjector"
-    artifact: %APPVEYOR_BUILD_FOLDER%\%BIN%_%CONFIGURATION%.zip
+    artifact: /.*\.zip/
     draft: false
     prerelease: true
 
@@ -81,7 +81,7 @@ deploy:
        secure: cnYMO9cyMsI/9C3cy885c8WQAKb7901FN3tPAsX2sM2g3+2yPiVs4JW5w2OfyHQM
     tag: "$(APPVEYOR_REPO_TAG_NAME)"
     release: "SoftProjector $(APPVEYOR_REPO_TAG_NAME)"
-    artifact: /.*\.exe/
+    artifact: /.*\.zip/
     draft: false
     prerelease: false
     on:
