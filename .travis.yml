@@ -72,7 +72,7 @@ script:
     wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage";
     chmod a+x linuxdeployqt*.AppImage;
     unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH;
-    ./linuxdeployqt*.AppImage deploy/.desktop -verbose=2 -appimage;
+    ./linuxdeployqt*.AppImage deploy/.desktop -verbose=1 -appimage;
   fi
 - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
     echo "Build project";
@@ -100,20 +100,20 @@ deploy:
     draft: false
     prerelease: true
 
-# Deploy configuration for "stable" releases
-  - provider: releases
-    token:
-      secure: otEDOcTs/M60aRG/D/sB8aC9OEOuFZ/F15p200kFzMjKKGRaPqG00IvaP7PrkgSjacA+2Xa8BpdTPIRZOlVLZypJUbK00yv4t7ZXKiAJqtogxtjP+F1qV5NWIOQAzeEx5c6oJDSU8PJyn5sekBQYFaWeddd1B2/PnY0x0qsnn4aC0cY3QA5ENtOh8uaRgUl9tXZ06dOGpWkpWHI6CVuT68Hxxho3zZ51zVhdnBiOODlWO+/p40NawXz66KMjh5CwvIW1vG+JeNRgzyodFLZaW2lObHl/FCXesHKTaD9r+/nZg/AczLCNyi9CZ9Jy1KLARA2FrpqMwL6v6wCLGKSfM2ozeEG6Zixtnaih3j+IxdkwAAFoWf0OzwRx21FvG5mi7bnCwe15uVF1Grz0P6AsTKEFrB8s4fmNAD52Rzq7lVOcAQstfbitatU/Jfzi36nV7W+qsLTprjDA2jtaSlmXARfAOyYJYNMCfex8WtmZuwKjCPWp9jXXYH60vv7s1ftlr5+uhkuA3E5UHxPcjmS5nTvX5uDAEz/tzMmUwmpS3HkgYFDevk7fx6IKAhN8PEtY68bjrBmZRk9mH1auYTUKKiQJNmQs38bbmfgeqFpVfm6vFSNTGW7HowxTVRg6iNKvAiSiAz1IyzDngwUrQ95Qjn22A4dhh55miGPotCr8ZX0=
-    skip_cleanup: true
-    file_glob: true
-    file: 
-        - "deploy/*.AppImage"
-        - "../mac_build/bin/*.dmg*"
-    overwrite: true
-    draft: false
-    prerelease: false
-    on:
-      tags: true
-      repo: stefslon/softprojector
-      condition: $TRAVIS_TAG =~ ([0-9]|[1-9][0-9])(\.([0-9]|[1-9][0-9])){2}$    # regex to match semver naming convention for stable full releases
+# # Deploy configuration for "stable" releases
+  # - provider: releases
+    # token:
+      # secure: otEDOcTs/M60aRG/D/sB8aC9OEOuFZ/F15p200kFzMjKKGRaPqG00IvaP7PrkgSjacA+2Xa8BpdTPIRZOlVLZypJUbK00yv4t7ZXKiAJqtogxtjP+F1qV5NWIOQAzeEx5c6oJDSU8PJyn5sekBQYFaWeddd1B2/PnY0x0qsnn4aC0cY3QA5ENtOh8uaRgUl9tXZ06dOGpWkpWHI6CVuT68Hxxho3zZ51zVhdnBiOODlWO+/p40NawXz66KMjh5CwvIW1vG+JeNRgzyodFLZaW2lObHl/FCXesHKTaD9r+/nZg/AczLCNyi9CZ9Jy1KLARA2FrpqMwL6v6wCLGKSfM2ozeEG6Zixtnaih3j+IxdkwAAFoWf0OzwRx21FvG5mi7bnCwe15uVF1Grz0P6AsTKEFrB8s4fmNAD52Rzq7lVOcAQstfbitatU/Jfzi36nV7W+qsLTprjDA2jtaSlmXARfAOyYJYNMCfex8WtmZuwKjCPWp9jXXYH60vv7s1ftlr5+uhkuA3E5UHxPcjmS5nTvX5uDAEz/tzMmUwmpS3HkgYFDevk7fx6IKAhN8PEtY68bjrBmZRk9mH1auYTUKKiQJNmQs38bbmfgeqFpVfm6vFSNTGW7HowxTVRg6iNKvAiSiAz1IyzDngwUrQ95Qjn22A4dhh55miGPotCr8ZX0=
+    # skip_cleanup: true
+    # file_glob: true
+    # file: 
+        # - "deploy/*.AppImage"
+        # - "../mac_build/bin/*.dmg*"
+    # overwrite: true
+    # draft: false
+    # prerelease: false
+    # on:
+      # tags: true
+      # repo: stefslon/softprojector
+      # condition: $TRAVIS_TAG =~ ([0-9]|[1-9][0-9])(\.([0-9]|[1-9][0-9])){2}$    # regex to match semver naming convention for stable full releases
 

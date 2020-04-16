@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=SoftProjector
+Categories=Presentation
 Comment=Church media presentation software
 Exec=SoftProjector
 Icon=softprojector
